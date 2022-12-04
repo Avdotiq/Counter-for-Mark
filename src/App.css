@@ -4,6 +4,14 @@
   box-sizing: border-box;
 }
 
+input {
+  border: none;
+}
+
+input:focus-visible {
+  outline: none;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

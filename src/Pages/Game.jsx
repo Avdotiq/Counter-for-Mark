@@ -1,61 +1,64 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
+import Calc from "../components/Calc/Calc";
+import EquationScreen from "../components/EquationScreen/EquationScreen";
+import {
+    updateTaskOne,
+    updateTaskTwo,
+    updateTaskThree,
+    updateСurrentTask,
+    updateProblem,
+} from "../store/action/calc";
+import { compareEqual } from "../helpers/calcReduser";
 import CALC_IMG from "../image/calc.svg";
+import TaskStatus from "../components/TaskStatus/TaskStatus";
 
 function Game() {
-    const [result, setResult] = useState(null);
+    const dispatch = useDispatch();
+    const data = useSelector((state) => state.calc);
+    const [currentresult, setCurrentResult] = useState(null);
+    console.log(data);
 
-    const handleChange = (item) => {
-        if (result === null) {
-            setResult(item);
-        } else {
-            let splitResult = String(result).split(" ");
-            splitResult.push(item);
-            setResult(splitResult.join(""));
+    const updateValue = (value) => {
+        setCurrentResult(value);
+    };
+
+    const compareResult = (value) => {
+        let result = compareEqual(data.problem.equal, value);
+        if (data.currentTask === 1) {
+            updateTaskOne(dispatch, result);
+            updateСurrentTask(dispatch);
+        } else if (data.currentTask === 2) {
+            updateTaskTwo(dispatch, result);
+            updateСurrentTask(dispatch);
+        } else if (data.currentTask === 3) {
+            updateTaskThree(dispatch, result);
+            updateСurrentTask(dispatch);
         }
     };
 
-    const handleReset = () => {
-        setResult(null);
-    };
-
-    const setNumbers = () => {
-        let arr = [];
-        for (let i = 0; i < 10; i++) {
-            arr.push(i);
-        }
-        return arr;
-    };
-
-    const calcNumbers = setNumbers();
+    useEffect(() => {
+        updateProblem(dispatch);
+    }, [data.currentTask]);
 
     return (
         <StyledGame>
-            <StyledCalc>
-                {calcNumbers.map((item, index) => (
-                    <input
-                        key={index}
-                        value={item}
-                        type="button"
-                        readOnly
-                        onClick={() => handleChange(item)}
-                    />
-                ))}
-                <input
-                    value="C"
-                    onClick={() => handleReset()}
-                    type="button"
-                    readOnly
-                />
-                <input value="OK" type="button" readOnly />
-            </StyledCalc>
+            <Calc
+                updateValue={updateValue}
+                compareResult={compareResult}
+                problem={data.problem}
+            />
+            <EquationScreen equation={data.problem.equation} />
             <StyledResult>
                 <input
-                    value={result === null ? " " : result}
-                    key={result}
+                    value={currentresult === null ? " " : currentresult}
+                    key={currentresult}
                     readOnly
+                    maxLength="3"
                 />
             </StyledResult>
+            <TaskStatus />
         </StyledGame>
     );
 }
@@ -70,24 +73,13 @@ const StyledGame = styled.div`
     background-position: center;
 `;
 
-const StyledCalc = styled.div`
-    position: absolute;
-    right: 25px;
-    top: 50%;
-    transform: translateY(-50%);
-    display: grid;
-    grid-template-columns: 40px 40px 40px;
-    grid-template-rows: 40px 40px 40px 40px;
-    gap: 10px;
-`;
-
 const StyledResult = styled.div`
     position: absolute;
-    bottom: 68px;
+    bottom: 75px;
     left: 227px;
 
     input {
-        height: 80px;
+        height: 70px;
         border: none;
         font-size: 20px;
     }
