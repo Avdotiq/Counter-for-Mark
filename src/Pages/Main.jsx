@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { LinkElement } from "../UI/LinkElement";
+import { MainContainer, Container } from "../components/Grid/Grid";
 import BALDI_IMG from "../image/hi.jpg";
 import BOARD_IMG from "../image/board.jpg";
 import MAIN_MP3 from "../sounds/main.mp3";
@@ -8,42 +9,35 @@ import BALMAIN_MP3 from "../sounds/bal_mainmenu.mp3";
 
 function Main() {
     return (
-        <StyledMain>
-            <img src={BALDI_IMG} alt="" />
-            <StyledBoard>
-                <figure>
-                    <img src={BOARD_IMG} alt="" />
-                    <figcaption>
-                        Mark
-                        <br /> you are in your own
-                        <br /> Education and <br /> learning
-                    </figcaption>
-                </figure>
-                <StyledButtons>
-                    <LinkElement link="/game/">Play</LinkElement>
-                    <LinkElement link="/score/">Score</LinkElement>
-                </StyledButtons>
-            </StyledBoard>
-            <audio autoPlay>
-                <source src={MAIN_MP3} type="audio/mpeg" />
-            </audio>
-            <audio autoPlay>
-                <source src={BALMAIN_MP3} type="audio/mpeg" />
-            </audio>
-        </StyledMain>
+        <MainContainer>
+            <Container>
+                <img src={BALDI_IMG} alt="" />
+                <StyledBoard>
+                    <figure>
+                        <img src={BOARD_IMG} alt="" />
+                        <figcaption>
+                            Mark
+                            <br /> you are in your own
+                            <br /> Education and <br /> learning
+                        </figcaption>
+                    </figure>
+                    <StyledButtons>
+                        <LinkElement link="/game/">Play</LinkElement>
+                        <LinkElement link="/score/">Score</LinkElement>
+                    </StyledButtons>
+                </StyledBoard>
+                <audio autoPlay>
+                    <source src={MAIN_MP3} type="audio/mpeg" />
+                </audio>
+                <audio autoPlay>
+                    <source src={BALMAIN_MP3} type="audio/mpeg" />
+                </audio>
+            </Container>
+        </MainContainer>
     );
 }
 
 export default Main;
-
-const StyledMain = styled.div`
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    height: 100vh;
-    padding: 20px;
-    background: #f7f7f7;
-`;
 
 const StyledBoard = styled.div`
     figure {

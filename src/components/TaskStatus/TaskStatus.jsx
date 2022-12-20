@@ -16,9 +16,12 @@ export default TaskStatus;
 const StyledTaskStatus = styled.div`
     position: absolute;
     top: 55px;
-    left: 87px;
+    left: 75px;
     display: flex;
     flex-direction: column;
+    input {
+        background: none;
+    }
     input:nth-of-type(1) {
         width: 40px;
         height: 30px;

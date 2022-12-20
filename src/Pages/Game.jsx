@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import Calc from "../components/Calc/Calc";
 import EquationScreen from "../components/EquationScreen/EquationScreen";
+import TaskStatus from "../components/TaskStatus/TaskStatus";
 import {
     updateTaskOne,
     updateTaskTwo,
@@ -12,7 +13,7 @@ import {
 } from "../store/action/calc";
 import { compareEqual } from "../helpers/calcReduser";
 import CALC_IMG from "../image/calc.svg";
-import TaskStatus from "../components/TaskStatus/TaskStatus";
+import { Container, MainContainer } from "../components/Grid/Grid";
 
 function Game() {
     const dispatch = useDispatch();
@@ -43,44 +44,45 @@ function Game() {
     }, [data.currentTask]);
 
     return (
-        <StyledGame>
-            <Calc
-                updateValue={updateValue}
-                compareResult={compareResult}
-                problem={data.problem}
-            />
-            <EquationScreen equation={data.problem.equation} />
-            <StyledResult>
-                <input
-                    value={currentresult === null ? " " : currentresult}
-                    key={currentresult}
-                    readOnly
-                    maxLength="3"
+        <MainContainer>
+            <Container>
+                <CalcImage src={CALC_IMG} alt="" />
+                <Calc
+                    updateValue={updateValue}
+                    compareResult={compareResult}
+                    problem={data.problem}
                 />
-            </StyledResult>
-            <TaskStatus />
-        </StyledGame>
+                <EquationScreen equation={data.problem.equation} />
+                <StyledResult>
+                    <input
+                        value={currentresult === null ? " " : currentresult}
+                        key={currentresult}
+                        readOnly
+                        maxLength="3"
+                    />
+                </StyledResult>
+                <TaskStatus />
+            </Container>
+        </MainContainer>
     );
 }
 
 export default Game;
 
-const StyledGame = styled.div`
-    height: 100vh;
-    background-image: url(${CALC_IMG});
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+const CalcImage = styled.img`
+    margin: auto;
+    width: 100%;
 `;
 
 const StyledResult = styled.div`
     position: absolute;
-    bottom: 75px;
-    left: 227px;
+    bottom: 80px;
+    left: 220px;
 
     input {
-        height: 70px;
+        height: 60px;
         border: none;
         font-size: 20px;
+        background: none;
     }
 `;

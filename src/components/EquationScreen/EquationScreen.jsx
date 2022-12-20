@@ -14,12 +14,13 @@ export default EquationScreen;
 
 const StyledEquation = styled.div`
     position: absolute;
-    top: 50px;
-    left: 165px;
+    top: 55px;
+    left: 160px;
     input {
-        width: 275px;
-        height: 130px;
+        width: 260px;
+        height: 115px;
         border: none;
         font-size: 20px;
+        background: none;
     }
 `;

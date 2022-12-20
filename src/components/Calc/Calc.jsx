@@ -72,7 +72,7 @@ export default Calc;
 
 const StyledCalc = styled.div`
     position: absolute;
-    right: 25px;
+    right: 15px;
     top: 50%;
     transform: translateY(-50%);
     display: grid;
